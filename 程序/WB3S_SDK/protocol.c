@@ -35,7 +35,6 @@
 #include "delay.h"
 #include "oled.h"
 #include "pwm.h"
-#include "weather.h"
 
 #ifdef WEATHER_ENABLE
 /**
@@ -464,7 +463,9 @@ void weather_open_return_handle(unsigned char res, unsigned char err)
 extern int Wea_Temp;			//温度
 extern int Wea_Humidity;		//湿度
 extern char Wea_WindSpeed[8];		//风速
-
+extern char Wea_Condition[8];		//保存接收到的中文天气
+extern u8 *Wea_bmp;
+extern u8 cloudy[],thunder[],sunny[],snows[],rain[];
 /**
  * @brief  天气数据用户自处理函数
  * @param[in] {name} 参数名
@@ -502,8 +503,79 @@ void weather_data_user_handle(char *name, unsigned char type, const unsigned cha
 		my_strcpy((char *)Wea_WindSpeed, (char *)value_string);
         printf("day:%d windSpeed value is:%s\r\n", day, value_string);	//string 型
     }else if(my_strcmp(name, "condition") == 0) {
-//        printf("day:%d condition value is:%s\r\n", day, value_string);	//string 型		
-		Weather_Judge(value_string);
+//        printf("day:%d condition value is:%s\r\n", day, value_string);	//string 型
+		//rain
+		if(
+			(my_strcmp(value_string, "雨") == 0) || 	
+			(my_strcmp(value_string, "小雨") == 0) || 	
+			(my_strcmp(value_string, "小到中雨") == 0) || 	
+			(my_strcmp(value_string, "中雨") == 0) || 	
+			(my_strcmp(value_string, "中到大雨") == 0) || 	
+			(my_strcmp(value_string, "大雨") == 0) 		|| 	
+			(my_strcmp(value_string, "大到暴雨") == 0) 	|| 		
+			(my_strcmp(value_string, "暴雨") == 0) 		|| 	
+			(my_strcmp(value_string, "大暴雨") == 0) 	|| 	
+			(my_strcmp(value_string, "特大暴雨") == 0) 	|| 	
+			(my_strcmp(value_string, "阵雨") == 0)  	|| 		
+			(my_strcmp(value_string, "局部阵雨") == 0) 	|| 	
+			(my_strcmp(value_string, "小阵雨") == 0) 	|| 			
+			(my_strcmp(value_string, "强阵雨") == 0) 	 			
+		){				
+			printf("rain\n");
+			my_strcpy((char *)Wea_Condition, (char *)"rain    ");
+			Wea_bmp = rain;
+		}
+		//cloudy   
+		else if(
+			(my_strcmp(value_string, "多云") == 0) 		|| 
+			(my_strcmp(value_string, "阴") == 0) 		|| 	
+			(my_strcmp(value_string, "雾") == 0) 	 		
+		){			
+			printf("cloudy\n");
+			my_strcpy((char *)Wea_Condition, (char *)"cloudy  ");
+			Wea_bmp = cloudy;
+		}
+		//thunder //  
+		else if(
+			(my_strcmp(value_string, "雷阵雨") == 0)	|| 	
+			(my_strcmp(value_string, "雷暴") == 0)		|| 	
+			(my_strcmp(value_string, "雷电") == 0) 	 		
+		){			
+			printf("thunder\n");
+			my_strcpy((char *)Wea_Condition, (char *)"thunder ");
+			Wea_bmp = thunder;
+		}
+		//snows          
+		else if(
+			(my_strcmp(value_string, "阵雪") == 0) 		|| 	
+			(my_strcmp(value_string, "小雪") == 0) 		|| 	
+			(my_strcmp(value_string, "雪") == 0) 		|| 	
+			(my_strcmp(value_string, "大雪") == 0) 		|| 	
+			(my_strcmp(value_string, "小到中雪") == 0) 	|| 	
+			(my_strcmp(value_string, "小阵雪") == 0) 	|| 	
+			(my_strcmp(value_string, "中雪") == 0) 		|| 		
+			(my_strcmp(value_string, "雨夹雪") == 0) 	|| 	
+			(my_strcmp(value_string, "暴雪") == 0) 			
+		){			
+			printf("snows\n");
+			my_strcpy((char *)Wea_Condition, (char *)"snows   ");
+			Wea_bmp = snows;
+		}
+		//sunny          
+		else if(
+			(my_strcmp(value_string, "晴") == 0) 		|| 	
+			(my_strcmp(value_string, "少云") == 0) 					
+		){			
+			printf("sunny\n");
+			my_strcpy((char *)Wea_Condition, (char *)"sunny   ");
+			Wea_bmp = sunny;
+		}
+		//没有列到的条件都当成是晴天，但是只显示图标不显示文字
+		else{		
+			printf("All wrong\n");
+			my_strcpy((char *)Wea_Condition, (char *)"        ");
+			Wea_bmp = sunny;
+		}
     }
 }
 #endif

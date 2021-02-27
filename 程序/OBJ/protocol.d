@@ -41,4 +41,3 @@
 ..\obj\protocol.o: ..\INCLUDE\oled.h
 ..\obj\protocol.o: C:\software\Keil_v5\ARM\ARMCC\Bin\..\include\stdlib.h
 ..\obj\protocol.o: ..\INCLUDE\pwm.h
-..\obj\protocol.o: ..\INCLUDE\weather.h

@@ -13,7 +13,6 @@
 #include "wb3s.h"
 #include "mcu_api.h"
 #include "pwm.h"
-#include "weather.h"
 
 extern int BatElect;
 extern u8 LedBit;		//LED标志位，为1时LED可以点亮
@@ -240,7 +239,7 @@ void OledGui_Time(void)
 int Wea_Temp = 0;				//温度
 int Wea_Humidity = 0;			//湿度
 char Wea_WindSpeed[8] = {0};	//风速
-char Wea_Condition[8] = "sunny";//天气
+char Wea_Condition[8] = {0};	//天气
 u8 *Wea_bmp = sunny;
 
 //cloudy,thunder,sunny,snows,rain

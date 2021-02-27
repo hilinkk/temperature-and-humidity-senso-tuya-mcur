@@ -33,13 +33,13 @@ void EXTIX_Init(void)
 	
 	
   	NVIC_InitStructure.NVIC_IRQChannel = EXTI0_IRQn;				//使能按键WK_UP所在的外部中断通道
-  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	//抢占优先级2， 
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;	//抢占优先级1， 
   	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 1;			//子优先级1
   	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;					//使能外部中断通道
   	NVIC_Init(&NVIC_InitStructure); 
 
   	NVIC_InitStructure.NVIC_IRQChannel = EXTI1_IRQn;				//使能按键KEY1所在的外部中断通道
-  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 1;	//抢占优先级2 
+  	NVIC_InitStructure.NVIC_IRQChannelPreemptionPriority = 0;	//抢占优先级1 
   	NVIC_InitStructure.NVIC_IRQChannelSubPriority = 2;			//子优先级2 
   	NVIC_InitStructure.NVIC_IRQChannelCmd = ENABLE;					//使能外部中断通道
   	NVIC_Init(&NVIC_InitStructure);  	  //根据NVIC_InitStruct中指定的参数初始化外设NVIC寄存器

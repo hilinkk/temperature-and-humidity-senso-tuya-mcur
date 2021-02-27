@@ -36,7 +36,7 @@ void TIM2_Int_Init(u16 arr,u16 psc)
 	TIM_Cmd(TIM2, ENABLE);  //使能TIMx					 
 }
 
-u8 OledRef = 0; 
+u8 OledRef = 1; 
 float BatVolt  = 0;		//电池电压
 int   BatElect = 0;		//电池电量
 //定时器2中断服务程序

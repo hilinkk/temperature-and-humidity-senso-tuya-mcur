@@ -43,7 +43,6 @@
 "..\obj\wb3s.o"
 "..\obj\wkup.o"
 "..\obj\pwm.o"
-"..\obj\weather.o"
 "..\obj\mcu_api.o"
 "..\obj\protocol.o"
 "..\obj\system.o"

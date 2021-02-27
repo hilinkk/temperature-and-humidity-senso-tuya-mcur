@@ -49,4 +49,3 @@
 ..\obj\oled_gui.o: ..\INCLUDE\wkup.h
 ..\obj\oled_gui.o: ..\INCLUDE\wb3s.h
 ..\obj\oled_gui.o: ..\INCLUDE\pwm.h
-..\obj\oled_gui.o: ..\INCLUDE\weather.h

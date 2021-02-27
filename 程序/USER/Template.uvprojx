@@ -336,7 +336,7 @@
             <v6WtE>0</v6WtE>
             <v6Rtti>0</v6Rtti>
             <VariousControls>
-              <MiscControls></MiscControls>
+              <MiscControls>--locale=english</MiscControls>
               <Define>STM32F10X_MD,USE_STDPERIPH_DRIVER</Define>
               <Undefine></Undefine>
               <IncludePath>..\USER;..\CORE;..\STM32F10x_FWLib\inc;..\SYSTEM\delay;..\SYSTEM\sys;..\SYSTEM\usart;..\INCLUDE;..\WB3S_SDK</IncludePath>
@@ -622,11 +622,6 @@
               <FileName>pwm.c</FileName>
               <FileType>1</FileType>
               <FilePath>..\SOURCE\pwm.c</FilePath>
-            </File>
-            <File>
-              <FileName>weather.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>..\SOURCE\weather.c</FilePath>
             </File>
           </Files>
         </Group>
