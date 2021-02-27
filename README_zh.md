@@ -33,6 +33,7 @@ For more information, please check Tuya Developer Website.
 - 控制芯片采用的是STM32F103C8T6，原因是我对这块芯片最为熟悉。
 - 采用锂电池进行供电，并可通过typec接口进行充电。
 - 板载了CH340N芯片，可与电脑进行串口通信，方便调试。
+- 采用两片ME6212C33芯片进行稳压，其中一块单独给MCU供电，另一块给其他外设供电。这样有利于电路稳定，也可通过MCU控制断开其他外设的电源，起到节电的目的。
 
 - 联网模组采用的是这次活动官方推荐的“WB3S-IPEX WiFi&BLE 双协议模组”，具有wifi和蓝牙功能。为避免模组的发热影响温度的测量，同时也为了避免模组的信号受到干扰，我将模组放到了另一块板子上，两个板子通过排针排母进行连接。涂鸦扩展板开源链接：[https://lceda.cn/linkk/zhi-neng-wen-shi-du-chuan-gan-qi_-tu-ya-kuo-zhan-ban](https://lceda.cn/linkk/zhi-neng-wen-shi-du-chuan-gan-qi_-tu-ya-kuo-zhan-ban)
 - 温湿度传感器采用的是常用的SHT30，同时在它周围进行了开槽处理，尽量降低板子温度对SHT30的干扰。不过实际使用中测量到的温度还是会比真实温度高一点。
