@@ -4,7 +4,7 @@ For more information, please check Tuya Developer Website.
 
 
 
-演示视频：
+演示视频：https://www.bilibili.com/video/BV1DA411K7TZ/
 
 
 
