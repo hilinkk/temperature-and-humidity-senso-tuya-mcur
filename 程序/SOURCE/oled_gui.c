@@ -207,10 +207,12 @@ void OledGui_Time(void)
 		OLED_ShowNumber0(0,  2, calendar.hour, 2, 32, OLED_CHR_NORMAL);	 	//时
 		OLED_ShowNumber0(48, 2, calendar.min,  2, 32, OLED_CHR_NORMAL);	 	//分
 		OLED_ShowNumber0(96, 2, calendar.sec,  2, 32, OLED_CHR_NORMAL);	 	//秒
-		
 		/* 显示星期几 */
 		switch(RTC_Get_Week(calendar.w_year, \
 				calendar.w_month, calendar.w_date)){
+			case 0:
+				OLED_C16x16Str(112, 6, (unsigned char*)"日");
+				break;
 			case 1:
 				OLED_C16x16Str(112, 6, (unsigned char*)"一");
 				break;
@@ -229,9 +231,7 @@ void OledGui_Time(void)
 			case 6:
 				OLED_C16x16Str(112, 6, (unsigned char*)"六");
 				break;
-			case 7:
-				OLED_C16x16Str(112, 6, (unsigned char*)"日");
-				break;
+			
 		}
 	}	
 }
