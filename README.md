@@ -1,2 +1,3 @@
 # temperature-and-humidity-senso-tuya-mcur
-This project is developed using stm32 and Tuya SDK, Features: access to temperature and humidity data, display time, access to the Internet weather data.
+This project is developed using Tuya SDK, which enables you to quickly develop brandedapps connecting and controlling smart scenarios of many devices.
+For more information, please check Tuya Developer Website.
