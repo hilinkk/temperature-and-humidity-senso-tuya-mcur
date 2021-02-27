@@ -20,6 +20,7 @@ Video presentation:
 
 ![61c946bee2bd0fbfcc09786e8bf4a04](https://user-images.githubusercontent.com/62596403/109381559-16946f00-7916-11eb-8e1d-841dfe77d1e0.jpg)
 
+![65ea7a58b4f5b6314ac65d68243af2b](https://user-images.githubusercontent.com/62596403/109384244-77c43e80-7926-11eb-844c-c91bcdf67741.jpg)
 
 
 Please refer to the schematic diagram for the specific circuit
