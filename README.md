@@ -5,7 +5,7 @@ This project is developed using Tuya SDK, which enables you to quickly develop b
 For more information, please check Tuya Developer Website.
 
 
-Video presentation:
+Video presentation:https://www.bilibili.com/video/BV1DA411K7TZ/
 
 ## Directions for use
 
