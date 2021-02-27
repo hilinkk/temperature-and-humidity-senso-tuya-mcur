@@ -21,9 +21,10 @@ For more information, please check Tuya Developer Website.
 
 先上图：
 
-![65ea7a58b4f5b6314ac65d68243af2b](65ea7a58b4f5b6314ac65d68243af2b.jpg)
 
-![61c946bee2bd0fbfcc09786e8bf4a04](61c946bee2bd0fbfcc09786e8bf4a04.jpg)
+![61c946bee2bd0fbfcc09786e8bf4a04](https://user-images.githubusercontent.com/62596403/109374783-d079e400-78f2-11eb-8d18-fda1e505a30f.jpg)
+![65ea7a58b4f5b6314ac65d68243af2b](https://user-images.githubusercontent.com/62596403/109374789-d4a60180-78f2-11eb-9f46-a1ffeabdea10.jpg)
+
 
 注意到上面的时间了吗，这篇文章是我熬夜赶出来的，看来临时抱佛脚的习惯得改改了，hhh。
 
@@ -45,17 +46,16 @@ For more information, please check Tuya Developer Website.
 
 > 1、首先在涂鸦工作台中下载所需要的 MCU SDK，如下图所示：
 >
-> ![image-20210226170231931](image-20210226170231931.png)
+> ![image-20210226170231931](https://user-images.githubusercontent.com/62596403/109374797-e687a480-78f2-11eb-8697-afd0dd56c666.png)
+
 
 > 2、然后将里面所有的 .c 文件添加进过程，并添加头文件路径。
->
-> ![image-20210226170429761](image-20210226170429761.png)
->
-> ![image-20210226170522002](image-20210226170522002.png)
+
 
 > 3、进入wifi.h，添加 #include "stm32f10x.h" （根据自己的芯片进行修改，我选用的芯片是stm32f103c8t6）
 >
-> ![image-20210226170814389](image-20210226170814389.png)
+> ![image-20210226170814389](https://user-images.githubusercontent.com/62596403/109374802-f99a7480-78f2-11eb-885c-6404bca4400c.png)
+
 
 > 4、最后进入protocol.h中，根据自己的需要进行配置，再根据编译错误提示进行修改即可。
 >
@@ -63,15 +63,15 @@ For more information, please check Tuya Developer Website.
 >
 > 4.1、在uart_transmit_output函数中调用串口单字节发送函数，注意是单字节发送！！！
 >
-> ![image-20210226171831080](image-20210226171831080.png)
+> ![image-20210226171831080](https://user-images.githubusercontent.com/62596403/109374806-00c18280-78f3-11eb-94db-707ecebd07a6.png)
 >
 > 4.2、在串口接收中断中调用uart_receive_input(value)，参数value是中断接收到的数据。记得先打开串口中断，程序运行过程中也尽量不要关闭所用到的串口中断。
 >
-> ![image-20210226172113816](image-20210226172113816.png)
+> ![image-20210226172113816](https://user-images.githubusercontent.com/62596403/109374815-0a4aea80-78f3-11eb-8522-9ce7936d1e17.png)
 >
 > 4.3、进入函数my_strcpy(char *dest, const char *src) ，将里面指针p的定义放到函数最前面。
 >
-> ![image-20210226173120708](image-20210226173120708.png)
+> ![image-20210226173120708](https://user-images.githubusercontent.com/62596403/109374820-15057f80-78f3-11eb-8927-7fa4aa753efe.png)
 >
 > 4.4、在MCU主函数while循环中调用函数：wifi_uart_service()
 >
@@ -83,7 +83,7 @@ For more information, please check Tuya Developer Website.
 >
 > 最后修改结果如下，0 Error, 0 Warning，哈哈哈
 >
-> ![image-20210226173327109](image-20210226173327109.png)
+> ![image-20210226173327109](https://user-images.githubusercontent.com/62596403/109374825-1df65100-78f3-11eb-8d8e-8e71c12a4998.png)
 
 
 
@@ -91,10 +91,10 @@ For more information, please check Tuya Developer Website.
 
 > 1、如果需要用到获取天气的功能，一定要吧串口数据处理缓存区大小改大点，不然接收不到处理后的数据。
 >
-> ![image-20210226201316139](image-20210226201316139.png)
+> ![image-20210226201316139](https://user-images.githubusercontent.com/62596403/109374826-251d5f00-78f3-11eb-8d4c-78257cae6533.png)
 >
 > 2、上面移植过程中已经提到过的，在uart_transmit_output函数中调用的串口发送函数，发送的数据一定要是单字节的。
 >
 > 3、获取天气数据时一定要看官方参考文档，确认数据的类型，不要只凭自己的感觉。比如风速是字符串类型的，我就在这卡了大半天，服了自己了。
 >
-> ![image-20210226234043536](image-20210226234043536.png)
+> ![image-20210226234043536](https://user-images.githubusercontent.com/62596403/109374837-323a4e00-78f3-11eb-9d4d-46e70c3bc4ce.png)
