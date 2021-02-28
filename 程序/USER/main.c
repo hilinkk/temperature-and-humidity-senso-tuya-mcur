@@ -19,6 +19,16 @@
 
 extern int BatElect;
 extern u8 GuiNum;
+extern u8 OledRef;
+extern u8 LedBit;
+
+//读取备份的数据
+static void BKP_Read(void)
+{
+	PWR_BackupAccessCmd(ENABLE);	//使能后备寄存器访问
+	LedBit = BKP_ReadBackupRegister(BKP_DR2);//从指定的后备寄存器中读出数据
+	OledRef = BKP_ReadBackupRegister(BKP_DR3);
+}
 
 int main(void)
 {
@@ -38,10 +48,11 @@ int main(void)
 	PWM_Init(5000-1, 288-1);//50HZ,即PWM周期为20ms		
 	OLED_Init();			//OLED初始化	
 	TIM2_Int_Init(1000-1, 7200-1);		//中断时间为0.1s,在中断中更新OLED显示,读取温湿度传感器等数据
+	BKP_Read();				//读取备份的数据
 	StartUp();				//显示开机界面			
-	delay_ms(1000);
 	LED_Off();
-	while(1){						
+	while(1){
+		
 		switch (GuiNum){
 			case FeaSetN:
 				OledGui_FeaSet();		//设置界面
