@@ -1,8 +1,42 @@
 #include "adc.h"
+#include "delay.h"
+
+//均值滤波
+static u16 Get_Adc_Average(u8 ch,u8 times)
+{
+	u32 temp_val=0;
+	u8 t;
+	for(t=0;t<times;t++)
+	{
+		temp_val+=Get_Adc(ch);
+//		delay_ms(1);
+	}
+	return temp_val/times;
+} 
+
+u8 N = 12;//滤波样本数
+static u16 AD_result[15];	//存放之前读取到的ADC值
+const u8 coe[15] = {1,2,3,4,5,6,7,8,9,10,11,12,13,14,15};//加权系数表
+//加权递推平均滤波法
+//函数入口：ad_buff，存储之前的采样值，ad_value，新采集到的数据，Ncount，新采样数权值
+static u16 WeightValueFilter(u16 *ad_buff,u16 ad_value,u16 Ncount) //加权递推平均滤波法
+{
+    u8 i,sum_coe = 0;//coe数组为加权系数表，存在程序存储区
+    u32 sum = 0;
+    ad_buff[Ncount] = ad_value;
+    for(i=0;i<Ncount;i++)
+    {
+        ad_buff[i] = ad_buff[i+1];//所有数据左移，低位仍掉
+        sum += ad_buff[i] * coe[i];
+        sum_coe += coe[i];        //所有权数相加
+    }
+    return (u16)(sum / sum_coe);
+}
 
 /* ADC 初始化*/
 void  Adc_Init(void)
 {    
+	u8 i = 0;
  	ADC_InitTypeDef ADC_InitStructure; 
 	GPIO_InitTypeDef GPIO_InitStructure;
 	RCC_APB2PeriphClockCmd(RCC_APB2Periph_GPIOA | RCC_APB2Periph_ADC1, ENABLE );	  //使能ADC1通道时钟
@@ -24,6 +58,11 @@ void  Adc_Init(void)
 	while(ADC_GetResetCalibrationStatus(ADC1));	//等待复位校准结束	
 	ADC_StartCalibration(ADC1);	 				//开启AD校准
 	while(ADC_GetCalibrationStatus(ADC1));	 	//等待校准结束
+	
+	//对读取到的ADC值进行加权递推平均滤波前的准备
+	for(i = 0; i < N; i++)
+		WeightValueFilter(AD_result,Get_Adc(Battery_Ch),N);
+	
 }		
 
 /**************************************************************************
@@ -40,6 +79,8 @@ u16 Get_Adc(u8 ch)
 	return ADC_GetConversionValue(ADC1);			//返回最近一次ADC1规则组的转换结果
 }
 
+
+
 /**************************************************************************
 函数功能：读取电池电压 
 入口参数：无
@@ -47,7 +88,9 @@ u16 Get_Adc(u8 ch)
 **************************************************************************/
 float Get_battery_volt(void)   
 {  
-	float Volt;
-	Volt = Get_Adc(Battery_Ch) * 3.3 / 4096 * 2;
+	float Volt;	
+	/* 依次“进行均值滤波”和“加权递推平均滤波” */
+	u16 Adc_Filter = WeightValueFilter(AD_result,Get_Adc_Average(Battery_Ch,5),N);
+	Volt =  Adc_Filter * 3.3 / 4096 * 2;
 	return Volt;
 }
